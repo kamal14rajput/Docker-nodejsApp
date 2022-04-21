@@ -1,0 +1,19 @@
+version: '3'
+
+#containers
+services:
+        #MongoDB services
+        mongo_db:
+                container_name: db_container
+                image: mongo:latest
+                restart: always
+        #Nodejs services
+        node_js:
+                build: .
+                ports:
+                   - 3000:3000
+                environment:
+                   MONGODB_URL: mongodb://mongo_db:27017/demo
+                   PORT: 3000
+                depends_on:
+                   - mongo_db     
